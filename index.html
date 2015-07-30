@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title></title>
+
+    <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/theme.css">
+</head>
+<body>
+
+<header class="container-fluid">
+    <div class="row form-inline">
+        <h1>Todo List</h1>
+        <button id="addItem">+</button>
+    </div>
+</header>
+
+<div class="container">
+	<ul id="todoList">
+	</ul>
+</div>
+
+<!-- New item template -->
+<li id="item_template" class="hidden row form-inline">
+	<input type="checkbox" class="item-isDone col-xs-1">
+	<span class="item-text col-xs-10"></span>
+
+	<input type="text" class="item-text-edit hidden col-xs-10">
+	<button class="item-delete col-xs-1">X</button>
+</li>
+
+<script src="assets/js/model.js"></script>
+<script src="assets/js/viewModel.js"></script>
+
+<script src="assets/js/init.js"></script>
+
+</body>
+</html>

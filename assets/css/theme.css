@@ -1,0 +1,19 @@
+html * {
+	box-sizing: border-box;
+}
+
+header {
+	background: #7575B6;
+	text-align: center;
+	width: 100%;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+li {
+	background: #C2D699;
+	margin: 2px 0;
+}
