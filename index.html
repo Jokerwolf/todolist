@@ -12,10 +12,8 @@
 <body>
 
 <header class="container-fluid">
-    <div class="row form-inline">
         <h1>Todo List</h1>
-        <button id="addItem">+</button>
-    </div>
+        <button id="addItem" class="btn glyphicon glyphicon-plus"></button>
 </header>
 
 <div class="container">
@@ -24,12 +22,12 @@
 </div>
 
 <!-- New item template -->
-<li id="item_template" class="hidden row form-inline">
+<li id="item_template" class="hidden row">
 	<input type="checkbox" class="item-isDone col-xs-1">
 	<span class="item-text col-xs-10"></span>
 
 	<input type="text" class="item-text-edit hidden col-xs-10">
-	<button class="item-delete col-xs-1">X</button>
+	<button class="item-delete col-xs-1 btn glyphicon glyphicon-remove"></button>
 </li>
 
 <script src="assets/js/model.js"></script>
