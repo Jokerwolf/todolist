@@ -3,7 +3,7 @@
  */
 //Create Model
 var model = new TodoList();
-model.addItem(new ListItem('Some text', false));
+//model.addItem(new ListItem('Some text', false));
 
 //Create View Model
 var viewModel = new TodoListViewModel(model);

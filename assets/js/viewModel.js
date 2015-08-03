@@ -31,7 +31,7 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
 
         displayControl.innerHTML = this.text();
         editControl.value = this.text();
-        li.querySelector('.item-isDone').checked = this.isDone();
+        li.querySelector('.is-Done').checked = this.isDone();
 
         //Add event listeners
         li.querySelector('.item-text').addEventListener('dblclick', this.editAction.bind(this, this, li, 'edit'));
