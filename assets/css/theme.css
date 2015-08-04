@@ -25,7 +25,8 @@ li {
 	background: #C2D699;
     padding: 5px;
 	margin: 3px 0;
-    height: 50px;
+    min-height: 50px;
+    height: auto;
     font-size: 20px;
     line-height: 1.5em;
 }
@@ -47,4 +48,9 @@ input[type=checkbox].item-isDone {
     font-family: "Glyphicons Halflings";
     content: "\e157";
     color: red;
+}
+
+.item-text {
+    display: block;
+    word-wrap: break-word;
 }
