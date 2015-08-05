@@ -50,7 +50,8 @@ input[type=checkbox].item-isDone {
     color: red;
 }
 
-.item-text {
+.item-text,
+.item-edit {
     display: block;
     word-wrap: break-word;
 }

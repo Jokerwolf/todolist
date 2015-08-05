@@ -3,6 +3,7 @@
  */
 /*** ViewModel ***/
 function ListItemViewModel(item, mode, editAction, deleteAction){
+    var self = this;
     this.item = item == null ? new ListItem('', false) : item;
 
     this.editAction = editAction == null ? function(){} : editAction;
@@ -13,7 +14,7 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
     };
 
     this.isDone = function(){
-        return this.item.isDone;
+        return self.item.isDone;
     };
 
     this.mode = mode == null ? 'display' : mode;
@@ -27,20 +28,26 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
         li.classList.remove('hidden');
 
         var displayControl = li.querySelector('.item-text');
-        var editControl = li.querySelector('.item-text-edit');
+        var editControl = li.querySelector('.item-edit');
 
-        displayControl.innerHTML = this.text();
-        editControl.value = this.text();
-        li.querySelector('.is-Done').checked = this.isDone();
+        displayControl.innerHTML = self.text();
+        editControl.value = self.text();
+        li.querySelector('.is-Done').checked = self.isDone();
 
         //Add event listeners
-        li.querySelector('.item-text').addEventListener('dblclick', this.editAction.bind(this, this, li, 'edit'));
-        li.querySelector('.item-text-edit').addEventListener('blur', this.editAction.bind(this, this, li, 'display'));
-        li.querySelector('.item-delete').addEventListener('click', this.deleteAction.bind(this, this, li.querySelector('.item-delete')));
+        li.querySelector('.item-text').addEventListener('dblclick', function(){
+            self.editAction(self, li, 'edit')
+        });
+        li.querySelector('.item-edit').addEventListener('blur', function(){
+            self.editAction(self, li, 'display')
+        });
+        li.querySelector('.item-delete').addEventListener('click', function(){
+            self.deleteAction(self, li)
+        });
 
         ul.appendChild(li);
 
-        switch (this.mode) {
+        switch (self.mode) {
             case 'edit':
                 displayControl.classList.add('hidden');
                 editControl.classList.remove('hidden');
@@ -53,6 +60,7 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
 };
 
 function TodoListViewModel(model){
+    var self = this;
     var model = model != null ? model : new TodoList();
     var items = [];
 
@@ -73,14 +81,13 @@ function TodoListViewModel(model){
             items.splice(index, 1);
         }
 
-        var li = viewControl.parentNode;
-        var ul = li.parentNode;
-        ul.removeChild(li);
+        var ul = viewControl.parentNode;
+        ul.removeChild(viewControl);
     }
 
     this.editItem = function(item, viewControl, mode){
         var displayControl = viewControl.querySelector('.item-text');
-        var editControl = viewControl.querySelector('.item-text-edit');
+        var editControl = viewControl.querySelector('.item-edit');
 
         switch (mode){
             case 'edit':
@@ -89,19 +96,30 @@ function TodoListViewModel(model){
                 editControl.classList.remove('hidden');
                 editControl.focus();
                 break;
-            default:
+            case 'display':
+                if (editControl.value === '' || editControl.value === null){
+                    //remove empty item
+                    self.deleteItem(item, editControl.parentNode.parentNode);
+                }
                 model.editItem(displayControl.innerHTML, editControl.value);
-
                 displayControl.innerHTML = editControl.value;
                 editControl.classList.add('hidden');
                 displayControl.classList.remove('hidden');
                 break;
+            default:
+                break;
         }
     }
 
-    for(var i = 0; i < model.getItems().length; i++){
-        items.push(new ListItemViewModel(model.getItems()[i], null, this.editItem, this.deleteItem));
-    }
+    this.addItem = function(item){
+        model.addItem(item.item);
+        item.editAction = self.editItem.bind(self);
+        item.deleteAction = self.deleteItem.bind(self);
+
+        items.push(item);
+
+        item.render();
+    };
 
     this.render = function(){
         var ul = document.getElementById('todoList');
@@ -111,14 +129,9 @@ function TodoListViewModel(model){
         }
     }
 
-    this.addItem = function(item){
-        model.addItem(item.item);
-        item.editAction = this.editItem;
-        item.deleteAction = this.deleteItem;
-
-        items.push(item);
-
-        item.render();
-    };
+    //fill items from model
+    for(var i = 0; i < model.getItems().length; i++){
+        items.push(new ListItemViewModel(model.getItems()[i], null, self.editItem, self.deleteItem));
+    }
 };
 /*** ViewModel end ***/
