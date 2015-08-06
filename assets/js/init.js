@@ -7,7 +7,7 @@ var model = new TodoList();
 
 //Create View Model
 var viewModel = new TodoListViewModel(model);
-viewModel.render();
+//viewModel.render();
 
 //Attach event listeners
 var addButton = document.getElementById('addItem');

@@ -31,6 +31,10 @@ li {
     line-height: 1.5em;
 }
 
+li.completed {
+    background: #807e7e;
+}
+
 li * {
     display: inline;
     vertical-align: middle;
@@ -52,6 +56,20 @@ input[type=checkbox].item-isDone {
 
 .item-text,
 .item-edit {
-    display: block;
     word-wrap: break-word;
+}
+
+li.done {
+    position: relative;
+    background: #aaaaaa;
+}
+
+li.done:before {
+    position: absolute;
+    content: " ";
+    width: 100%;
+    top: 50%;
+    left: 0;
+    border-bottom: 3px #000000 solid;
+    z-index: 9999;
 }
