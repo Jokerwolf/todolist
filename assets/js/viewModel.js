@@ -99,7 +99,7 @@ function TodoListViewModel(model){
             case 'display':
                 if (editControl.value === '' || editControl.value === null){
                     //remove empty item
-                    self.deleteItem(item, editControl.parentNode.parentNode);
+                    self.deleteItem(item, editControl.parentNode);
                 }
                 model.editItem(displayControl.innerHTML, editControl.value);
                 displayControl.innerHTML = editControl.value;

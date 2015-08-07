@@ -35,10 +35,30 @@ li.completed {
     background: #807e7e;
 }
 
+li .is-Done {
+    width: auto;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+li .item-text,
+li .item-edit {
+    width: 90%;
+}
+
+li .item-delete {
+    width: auto;
+}
+
 li * {
     display: inline;
     vertical-align: middle;
+    margin: 0 5px;
 }
+
+/*li > label.is-Done {*/
+    /*width: auto;*/
+/*}*/
 
 .btn {
     background: transparent;
