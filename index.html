@@ -21,7 +21,17 @@
 
 <div class="container">
 	<ul id="todoList">
-	</ul>
+        <li class="row form-inline">
+            <label class="is-Done col-xs-1">
+                <input type="checkbox" class="is-Done"/>
+                <span></span>
+                <span class="crossed"></span>
+            </label>
+            <span class="item-text col-xs-10">Some text</span>
+            <input type="text" class="item-text item-edit col-xs-10 hidden">
+            <button class="item-delete col-xs-1 btn glyphicon glyphicon-remove"></button>
+        </li>
+    </ul>
 </div>
 
 <!-- New item template -->

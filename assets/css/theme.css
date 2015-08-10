@@ -36,18 +36,21 @@ li.completed {
 }
 
 li .is-Done {
-    width: auto;
+    width: 100%;
     padding-right: 0;
     padding-left: 0;
+    margin-bottom: -1.5em;
 }
 
 li .item-text,
 li .item-edit {
     width: 90%;
+    margin-left: 3%;
 }
 
 li .item-delete {
     width: auto;
+    margin-top: -0.3em;
 }
 
 li * {
@@ -79,12 +82,12 @@ input[type=checkbox].item-isDone {
     word-wrap: break-word;
 }
 
-li.done {
-    position: relative;
-    background: #aaaaaa;
+span.crossed {
+    margin:  0;
 }
 
-li.done:before {
+[type="checkbox"].is-Done:checked ~ span.crossed:after,
+[type="checkbox"].is-Done:not(:checked) ~ span.crossed:after {
     position: absolute;
     content: " ";
     width: 100%;
@@ -92,4 +95,14 @@ li.done:before {
     left: 0;
     border-bottom: 3px #000000 solid;
     z-index: 9999;
+}
+
+[type="checkbox"].is-Done:not(:checked) ~ span.crossed:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+[type="checkbox"].is-Done:checked ~ span.crossed:after {
+    opacity: 1;
+    transform: scale(1);
 }
