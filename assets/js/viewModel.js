@@ -33,6 +33,15 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
         displayControl.innerHTML = self.text();
         editControl.value = self.text();
         li.querySelector('.is-Done').checked = self.isDone();
+        li.querySelector('.is-Done').addEventListener('change', function(e){
+            var li = e.srcElement.parentNode.parentNode;
+
+            if (e.srcElement.checked){
+                li.classList.add('done');
+            } else {
+                li.classList.remove('done');
+            }
+        });
 
         //Add event listeners
         li.querySelector('.item-text').addEventListener('dblclick', function(){
