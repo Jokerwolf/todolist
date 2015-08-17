@@ -72,3 +72,28 @@ li * {
 .done {
     background: #aaaaaa;
 }
+
+span.crossed-out {
+    margin:  0;
+}
+
+[type="checkbox"].is-Done:checked ~ span.crossed-out:after,
+[type="checkbox"].is-Done:not(:checked) ~ span.crossed-out:after  {
+    position: absolute;
+    content: " ";
+    width: 100%;
+    top: 50%;
+    left: 0;
+    border-bottom: 3px #000000 solid;
+    z-index: 9999;
+}
+
+[type="checkbox"].is-Done:not(:checked) ~ span.crossed-out:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+[type="checkbox"].is-Done:checked ~ span.crossed-out:after {
+    opacity: 1;
+    transform: scale(1);
+}
