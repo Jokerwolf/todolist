@@ -3,11 +3,10 @@
  */
 //Create Model
 var model = new TodoList();
-//model.addItem(new ListItem('Some text', false));
 
 //Create View Model
 var viewModel = new TodoListViewModel(model);
-//viewModel.render();
+viewModel.render();
 
 //Attach event listeners
 var addButton = document.getElementById('addItem');
