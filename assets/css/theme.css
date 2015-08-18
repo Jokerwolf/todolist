@@ -97,3 +97,9 @@ span.crossed-out {
     opacity: 1;
     transform: scale(1);
 }
+
+.centered {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
