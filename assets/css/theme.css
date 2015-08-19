@@ -16,6 +16,12 @@ header * {
     margin: 0 5px;
 }
 
+a,
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 ul {
 	list-style-type: none;
 	padding-left: 0;
@@ -59,7 +65,7 @@ li * {
     vertical-align: middle;
 }
 
-.btn {
+.btn.transparent {
     background: transparent;
     border: #ffffff solid;
 }
@@ -96,10 +102,4 @@ span.crossed-out {
 [type="checkbox"].is-Done:checked ~ span.crossed-out:after {
     opacity: 1;
     transform: scale(1);
-}
-
-.centered {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
 }
