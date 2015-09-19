@@ -50,6 +50,12 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
         li.querySelector('.item-edit').addEventListener('blur', function(){
             self.editAction(self, li, 'display')
         });
+        li.querySelector('.item-edit').addEventListener('keypress', function(e){
+            var key = e.which || e.keyCode;
+            if (key === 13) { // 13 is enter
+                self.editAction(self, li, 'display')
+            }
+        });
         li.querySelector('.item-delete').addEventListener('click', function(){
             self.deleteAction(self, li)
         });
