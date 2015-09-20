@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/theme.css">
     <link rel="stylesheet" type="text/css" href="assets/css/checkbox.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/sidePanel.css">
 </head>
 <body>
 
@@ -19,8 +20,9 @@
     </div>
 </header>
 
-<div class="container col-lg-2 side-panel">
-    <ul id="lists">
+<!-- Side panel -->
+<nav id="sidePanel" class="container col-xs-2 side-panel">
+    <ul id="lists" class="list">
         <li>
             <a href="/index.html"><span>Some list</span></a>
         </li>
@@ -31,14 +33,17 @@
             <a href="/index.html"><span>Another list</span></a>
         </li>
     </ul>
-</div>
-<div class="container col-lg-10 main-area">
+    <button id="collapseButton" class="collapse-button">/</button>
+</nav>
+
+<!-- Main area -->
+<div id="mainArea" class="container col-xs-10 main-area">
 	<ul id="todoList">
     </ul>
 </div>
 
 <!-- New item template -->
-<li id="item_template" class="hidden row form-inline">
+<li id="item_template" class="hidden row form-inline padded">
     <label class="is-Done col-xs-1">
         <input type="checkbox" class="is-Done"/>
         <span></span>
@@ -49,10 +54,15 @@
     <button class="item-delete col-xs-1 btn transparent glyphicon glyphicon-remove"></button>
 </li>
 
-<script src="assets/js/model.js"></script>
-<script src="assets/js/viewModel.js"></script>
+<script src="assets/js/listModel.js"></script>
+<script src="assets/js/listViewModel.js"></script>
+
+<script src="assets/js/sidePanelModel.js"></script>
+<script src="assets/js/sidePanelViewModel.js"></script>
 
 <script src="assets/js/init.js"></script>
+
+<script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
 
 </body>
 </html>

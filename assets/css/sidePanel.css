@@ -1,0 +1,18 @@
+.side-panel {
+    padding: 0;
+    height: 100vh;
+}
+
+.list {
+    float: left;
+    position: relative;
+    width: 90%;
+}
+
+.collapse-button {
+    height: inherit;
+    float: left;
+    position: relative;
+    width: 10%;
+    padding: 0;
+}
