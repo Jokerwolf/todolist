@@ -1,18 +1,27 @@
 .side-panel {
     padding: 0;
     height: 100vh;
+
+    background: #f0e9eb;
 }
 
 .list {
     float: left;
     position: relative;
-    width: 90%;
+    width: 85%;
 }
 
 .collapse-button {
     height: inherit;
     float: left;
     position: relative;
-    width: 10%;
+    width: 14.5%;
     padding: 0;
+    background: #ddd6d8;
+    opacity: 0.3;
+    border: none;
+}
+
+.collapse-button:hover {
+    opacity: 0.8;
 }

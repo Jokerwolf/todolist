@@ -13,8 +13,10 @@ var viewModel = new TodoListViewModel(model);
 viewModel.render();
 
 //Attach event listeners
-var addButton = document.getElementById('addItem');
-addButton.addEventListener('click', addNewItem);
+var addButtons = document.getElementsByClassName('add-item');
+for (var i = 0; i < addButtons.length; i++) {
+    addButtons[i].addEventListener('click', addNewItem);
+}
 
 function addNewItem(){
     viewModel.addItem(new ListItemViewModel(null, 'edit'));
