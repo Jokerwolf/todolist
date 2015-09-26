@@ -23,15 +23,25 @@ function addNewItem(){
 }
 
 /**
- * Side Pane
+ * Side Panel
  */
-var sidePaneModel = new SidePanelModel();
+var sidePaneModel = new SidePanelModel('open', [ new ListModel('To buy'), new ListModel('To see'), new ListModel('To read') ]);
 var sidePanelViewModel = new SidePanelViewModel(sidePaneModel);
 
 var collapseButton = document.getElementById('collapseButton');
-collapseButton.addEventListener('click', collapsePanel)
+collapseButton.addEventListener('click', collapsePanel);
 
+var addNewListButton = document.getElementById('addList');
+addNewListButton.addEventListener('click', addNewList);
+
+sidePanelViewModel.render();
 
 function collapsePanel(){
     sidePanelViewModel.changeCollapsedState();
+}
+
+function addNewList(){
+    var newList = new ListModel('My new list');
+
+    sidePanelViewModel.listsViewModel.addNewList(newList);
 }
