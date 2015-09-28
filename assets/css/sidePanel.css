@@ -1,7 +1,5 @@
 .side-panel {
     padding: 0;
-    height: 100vh;
-
     background: #f0e9eb;
 }
 
@@ -12,9 +10,9 @@
 }
 
 .collapse-button {
-    height: inherit;
+    height: 100%;
     float: left;
-    position: relative;
+    position: absolute;
     width: 14.5%;
     padding: 0;
     background: #ddd6d8;
