@@ -1,12 +1,17 @@
 .side-panel {
     padding: 0;
     background: #f0e9eb;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
 }
 
 .list {
     float: left;
     position: relative;
     width: 85%;
+    overflow:auto;
+    height: 100%;
 }
 
 .collapse-button {
