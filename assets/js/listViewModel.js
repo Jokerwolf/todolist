@@ -1,6 +1,13 @@
 /**
  * Created by jokerwolf on 18/07/15.
  */
+
+function TodoListEditableControl(template, parent){
+    var self = this;
+    self.prototype = new EditableControl(template, parent);
+    self.prototype.render('text');
+}
+
 /*** ViewModel ***/
 function ListItemViewModel(item, mode, editAction, deleteAction){
     var self = this;
@@ -20,57 +27,62 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
     this.mode = mode == null ? 'display' : mode;
 
     this.render = function(){
+        var control = TodoListEditableControl('item_template', 'todoList');
         //Create list item view from template
-        var template = document.getElementById('item_template');
-        var li = template.cloneNode(true);
-        var ul = document.getElementById('todoList');
-        li.removeAttribute('id');
-        li.classList.remove('hidden');
+        //var template = document.getElementById('item_template');
+        //var li = template.cloneNode(true);
+        //var ul = document.getElementById('todoList');
+        //li.removeAttribute('id');
+        //li.classList.remove('hidden');
+        //
+        //var displayControl = li.querySelector('.item-text');
+        //var editControl = li.querySelector('.item-edit');
+        //
+        //displayControl.innerHTML = self.text();
+        //editControl.value = self.text();
 
-        var displayControl = li.querySelector('.item-text');
-        var editControl = li.querySelector('.item-edit');
+        //var editableControl = new EditableControl('item_template', 'todoList');
+        //editableControl.render(self.text());
 
-        displayControl.innerHTML = self.text();
-        editControl.value = self.text();
-        li.querySelector('.is-Done').checked = self.isDone();
-        li.querySelector('.is-Done').addEventListener('change', function(e){
-            var li = e.srcElement.parentNode.parentNode;
-
-            if (e.srcElement.checked){
-                li.classList.add('done');
-            } else {
-                li.classList.remove('done');
-            }
-        });
-
-        //Add event listeners
-        li.querySelector('.item-text').addEventListener('dblclick', function(){
-            self.editAction(self, li, 'edit')
-        });
-        li.querySelector('.item-edit').addEventListener('blur', function(){
-            self.editAction(self, li, 'display')
-        });
-        li.querySelector('.item-edit').addEventListener('keypress', function(e){
-            var key = e.which || e.keyCode;
-            if (key === 13) { // 13 is enter
-                self.editAction(self, li, 'display')
-            }
-        });
-        li.querySelector('.item-delete').addEventListener('click', function(){
-            self.deleteAction(self, li)
-        });
-
-        ul.appendChild(li);
-
-        switch (self.mode) {
-            case 'edit':
-                displayControl.classList.add('hidden');
-                editControl.classList.remove('hidden');
-                editControl.focus();
-                break;
-            default:
-                break;
-        }
+        //li.querySelector('.is-Done').checked = self.isDone();
+        //li.querySelector('.is-Done').addEventListener('change', function(e){
+        //    var li = e.srcElement.parentNode.parentNode;
+        //
+        //    if (e.srcElement.checked){
+        //        li.classList.add('done');
+        //    } else {
+        //        li.classList.remove('done');
+        //    }
+        //});
+        //
+        ////Add event listeners
+        //li.querySelector('.item-text').addEventListener('dblclick', function(){
+        //    self.editAction(self, li, 'edit')
+        //});
+        //li.querySelector('.item-edit').addEventListener('blur', function(){
+        //    self.editAction(self, li, 'display')
+        //});
+        //li.querySelector('.item-edit').addEventListener('keypress', function(e){
+        //    var key = e.which || e.keyCode;
+        //    if (key === 13) { // 13 is enter
+        //        self.editAction(self, li, 'display')
+        //    }
+        //});
+        //li.querySelector('.item-delete').addEventListener('click', function(){
+        //    self.deleteAction(self, li)
+        //});
+        //
+        //ul.appendChild(li);
+        //
+        //switch (self.mode) {
+        //    case 'edit':
+        //        displayControl.classList.add('hidden');
+        //        editControl.classList.remove('hidden');
+        //        editControl.focus();
+        //        break;
+        //    default:
+        //        break;
+        //}
     };
 };
 
