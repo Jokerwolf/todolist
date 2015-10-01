@@ -1,18 +1,15 @@
 /**
  * Created by jokerwolf on 20/09/15.
  */
-
-function ListModel(text){
-    var text = text;
-
-    this.getText = function(){
-        return text;
-    }
-}
-
+/**
+ *
+ * @param state
+ * @param lists [TodoListModel, ...]
+ * @constructor
+ */
 function SidePanelModel(state, lists){
     this.state = state == null ? 'open' : state;
-    var lists = lists == null ? [] : lists;
+    var todoLists = lists == null ? [] : lists;
 
 
     this.getPanelState = function(){
@@ -28,10 +25,10 @@ function SidePanelModel(state, lists){
     };
 
     this.getItems = function(){
-        return lists;
+        return todoLists;
     }
 
     this.addNewList = function(newList){
-        lists.push(newList);
+        todoLists.push(newList);
     };
 }

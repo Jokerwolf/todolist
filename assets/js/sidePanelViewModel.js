@@ -2,8 +2,17 @@
  * Created by jokerwolf on 20/09/15.
  */
 
-function ListViewModel(item){
+/**
+ *
+ * @param item TodoListModel
+ * @constructor
+ */
+function SidePanelTodoListViewModel(item){
     var item = item == null ? {} : item;
+
+    this.getModel = function(){
+        return item;
+    }
 
     this.render = function(){
         var template = document.getElementById('list_template');
@@ -17,20 +26,22 @@ function ListViewModel(item){
         var displayControl = li.querySelector('.item-text');
         var editControl = li.querySelector('.item-edit');
 
-        displayControl.innerHTML = item.getText();
-        editControl.value = item.getText();
+        displayControl.innerHTML = item.getTitle();
+        editControl.value = item.getTitle();
 
         list.appendChild(li);
     }
 }
 
-function ListsViewModel(lists){
+/**
+ *
+ * @param lists [TodoListModel,...]
+ * @constructor
+ */
+function SidePanelTodoListsViewModel(lists){
     var self = this;
+    var model = lists;
     var items = [];
-
-    for (var i = 0; i < lists.length; i++){
-        items.push(new ListViewModel(lists[i]));
-    }
 
     this.getLength = function() {
         return items.length;
@@ -40,8 +51,13 @@ function ListsViewModel(lists){
         return items[index];
     };
 
+    /**
+     *
+     * @param newList TodoListModel
+     */
     this.addNewList = function(newList){
-        var newItem = new ListViewModel(newList);
+        model.push(newList);
+        var newItem = new SidePanelTodoListViewModel(newList);
 
         items.push(newItem);
         newItem.render();
@@ -52,11 +68,21 @@ function ListsViewModel(lists){
             items[i].render();
         }
     }
+
+    //fill items
+    for (var i = 0; i < lists.length; i++){
+        items.push(new SidePanelTodoListViewModel(lists[i]));
+    }
 }
 
+/**
+ *
+ * @param model SidePanelModel
+ * @constructor
+ */
 function SidePanelViewModel(model){
     var self = this;
-    this.listsViewModel = new ListsViewModel(model.getItems());
+    this.todoListsViewModel = new SidePanelTodoListsViewModel(model.getItems());
 
     var initState = saveInitState();
 
@@ -86,10 +112,14 @@ function SidePanelViewModel(model){
     };
 
     this.render = function(){
-
         //render lists
-        self.listsViewModel.render();
+        self.todoListsViewModel.render();
     };
+
+    this.getActiveTodoList = function(){
+        //DUMMY
+        return self.todoListsViewModel.getElementAt(2)
+    }
 
     function saveInitState(){
         var sidePanel = document.getElementById('sidePanel');

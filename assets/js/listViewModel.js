@@ -2,16 +2,10 @@
  * Created by jokerwolf on 18/07/15.
  */
 
-function TodoListEditableControl(template, parent){
-    var self = this;
-    self.prototype = new EditableControl(template, parent);
-    self.prototype.render('text');
-}
-
 /*** ViewModel ***/
-function ListItemViewModel(item, mode, editAction, deleteAction){
+function TodoListItemViewModel(item, mode, editAction, deleteAction){
     var self = this;
-    this.item = item == null ? new ListItem('', false) : item;
+    this.item = item == null ? new TodoListItemModel('', false) : item;
 
     this.editAction = editAction == null ? function(){} : editAction;
     this.deleteAction = deleteAction == null ? function(){} : deleteAction;
@@ -27,68 +21,71 @@ function ListItemViewModel(item, mode, editAction, deleteAction){
     this.mode = mode == null ? 'display' : mode;
 
     this.render = function(){
-        var control = TodoListEditableControl('item_template', 'todoList');
         //Create list item view from template
-        //var template = document.getElementById('item_template');
-        //var li = template.cloneNode(true);
-        //var ul = document.getElementById('todoList');
-        //li.removeAttribute('id');
-        //li.classList.remove('hidden');
-        //
-        //var displayControl = li.querySelector('.item-text');
-        //var editControl = li.querySelector('.item-edit');
-        //
-        //displayControl.innerHTML = self.text();
-        //editControl.value = self.text();
+        var template = document.getElementById('item_template');
+        var li = template.cloneNode(true);
+        var ul = document.getElementById('todoList');
+        li.removeAttribute('id');
+        li.classList.remove('hidden');
 
-        //var editableControl = new EditableControl('item_template', 'todoList');
-        //editableControl.render(self.text());
+        var displayControl = li.querySelector('.item-text');
+        var editControl = li.querySelector('.item-edit');
 
-        //li.querySelector('.is-Done').checked = self.isDone();
-        //li.querySelector('.is-Done').addEventListener('change', function(e){
-        //    var li = e.srcElement.parentNode.parentNode;
-        //
-        //    if (e.srcElement.checked){
-        //        li.classList.add('done');
-        //    } else {
-        //        li.classList.remove('done');
-        //    }
-        //});
-        //
-        ////Add event listeners
-        //li.querySelector('.item-text').addEventListener('dblclick', function(){
-        //    self.editAction(self, li, 'edit')
-        //});
-        //li.querySelector('.item-edit').addEventListener('blur', function(){
-        //    self.editAction(self, li, 'display')
-        //});
-        //li.querySelector('.item-edit').addEventListener('keypress', function(e){
-        //    var key = e.which || e.keyCode;
-        //    if (key === 13) { // 13 is enter
-        //        self.editAction(self, li, 'display')
-        //    }
-        //});
-        //li.querySelector('.item-delete').addEventListener('click', function(){
-        //    self.deleteAction(self, li)
-        //});
-        //
-        //ul.appendChild(li);
-        //
-        //switch (self.mode) {
-        //    case 'edit':
-        //        displayControl.classList.add('hidden');
-        //        editControl.classList.remove('hidden');
-        //        editControl.focus();
-        //        break;
-        //    default:
-        //        break;
-        //}
+        displayControl.innerHTML = self.text();
+        editControl.value = self.text();
+
+        li.querySelector('.is-Done').addEventListener('change', function(e){
+            var li = e.srcElement.parentNode.parentNode;
+
+            if (e.srcElement.checked){
+                li.classList.add('done');
+            } else {
+                li.classList.remove('done');
+            }
+        });
+
+        //Add event listeners
+        li.querySelector('.item-text').addEventListener('dblclick', function(){
+            self.editAction(self, li, 'edit')
+        });
+        li.querySelector('.item-edit').addEventListener('blur', function(){
+            self.editAction(self, li, 'display')
+        });
+        li.querySelector('.item-edit').addEventListener('keypress', function(e){
+            var key = e.which || e.keyCode;
+            if (key === 13) { // 13 is enter
+                self.editAction(self, li, 'display')
+            }
+        });
+        li.querySelector('.item-delete').addEventListener('click', function(){
+            self.deleteAction(self, li)
+        });
+
+        ul.appendChild(li);
+
+        switch (self.mode) {
+            case 'edit':
+                displayControl.classList.add('hidden');
+                editControl.classList.remove('hidden');
+                editControl.focus();
+                break;
+            default:
+                break;
+        }
+
+        li.querySelector('.is-Done').checked = self.isDone();
+        li.querySelector('.is-Done').dispatchEvent(new Event('change'));
     };
 };
 
+/**
+ *
+ * @param model TodoListModel
+ * @constructor
+ */
 function TodoListViewModel(model){
     var self = this;
-    var model = model != null ? model : new TodoList();
+    var model = model != null ? model : new TodoListModel();
     var items = [];
 
     function indexOfItem(value){
@@ -158,7 +155,7 @@ function TodoListViewModel(model){
 
     //fill items from model
     for(var i = 0; i < model.getItems().length; i++){
-        items.push(new ListItemViewModel(model.getItems()[i], null, self.editItem, self.deleteItem));
+        items.push(new TodoListItemViewModel(model.getItems()[i], null, self.editItem, self.deleteItem));
     }
 };
 /*** ViewModel end ***/

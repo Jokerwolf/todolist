@@ -2,14 +2,31 @@
  * Created by jokerwolf on 18/07/15.
  */
 
-/**
- * List
- */
-//Create Model
-var model = new TodoList();
 
-//Create View Model
-var viewModel = new TodoListViewModel(model);
+/**
+ * Side Panel
+ */
+var sidePanelModel = new SidePanelModel('open',
+    [
+        new TodoListModel('To buy', [new TodoListItemModel('Milk'), new TodoListItemModel('Cheese'), new TodoListItemModel('Grapes')]),
+        new TodoListModel('To see', [new TodoListItemModel('Rambo'), new TodoListItemModel('Rocky'), new TodoListItemModel('Monsters Inc.')]),
+        new TodoListModel('To read', [new TodoListItemModel('1984', true), new TodoListItemModel('Animal Farm', true), new TodoListItemModel('Fight Club')])
+    ]
+);
+var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
+sidePanelViewModel.render();
+
+var collapseButton = document.getElementById('collapseButton');
+collapseButton.addEventListener('click', collapsePanel);
+
+var addNewListButton = document.getElementById('addList');
+addNewListButton.addEventListener('click', addNewList);
+
+//Show active todolist
+//SidePanelTodoListViewModel
+var activeTodoList = sidePanelViewModel.getActiveTodoList();
+//TodolistModel
+var viewModel = new TodoListViewModel(activeTodoList.getModel());
 viewModel.render();
 
 //Attach event listeners
@@ -19,29 +36,15 @@ for (var i = 0; i < addButtons.length; i++) {
 }
 
 function addNewItem(){
-    viewModel.addItem(new ListItemViewModel(null, 'edit'));
+    viewModel.addItem(new TodoListItemViewModel(null, 'edit'));
 }
-
-/**
- * Side Panel
- */
-var sidePaneModel = new SidePanelModel('open', [ new ListModel('To buy'), new ListModel('To see'), new ListModel('To read') ]);
-var sidePanelViewModel = new SidePanelViewModel(sidePaneModel);
-
-var collapseButton = document.getElementById('collapseButton');
-collapseButton.addEventListener('click', collapsePanel);
-
-var addNewListButton = document.getElementById('addList');
-addNewListButton.addEventListener('click', addNewList);
-
-sidePanelViewModel.render();
 
 function collapsePanel(){
     sidePanelViewModel.changeCollapsedState();
 }
 
 function addNewList(){
-    var newList = new ListModel('My new list');
+    var newList = new TodoListModel('My new list');
 
-    sidePanelViewModel.listsViewModel.addNewList(newList);
+    sidePanelViewModel.todoListsViewModel.addNewList(newList);
 }

@@ -1,21 +1,33 @@
 /*** Model ***/
-function ListItem(text, isDone) {
+function TodoListItemModel(text, isDone) {
 	this.text = text;
 	this.isDone = isDone;
 };
 
-function TodoList(items, addItem, deleteItem, editItem){
+/**
+ *
+ * @param title
+ * @param items [TodoListItemModel,...]
+ * @constructor
+ */
+function TodoListModel(title, items){
+    var self = this;
 	var items = items != null ? items : [];
+    this.title = title;
+
+    this.getTitle = function(){
+        return self.title;
+    }
 
     this.getItems = function(){
         return items;
     }
 
-	this.addItem = addItem != null ? addItem : function(item){
+	this.addItem = function(item){
 		items.push(item);
 	};
 
-	this.deleteItem = deleteItem != null ? deleteItem : function(item){
+	this.deleteItem = function(item){
 		var index = indexOfItem(item.text);		
 
 		if (index >= 0){
@@ -23,7 +35,7 @@ function TodoList(items, addItem, deleteItem, editItem){
 		}
 	};
 
-	this.editItem = editItem != null ? editItem : function(value, newValue){
+	this.editItem = function(value, newValue){
 		var index = indexOfItem(value);
 
 		if (index >= 0){
@@ -37,6 +49,8 @@ function TodoList(items, addItem, deleteItem, editItem){
 				return i;
 			}
 		}
+
+        return null;
 	}
 };
 /*** Model end ***/
