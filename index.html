@@ -15,8 +15,9 @@
 
 <header class="container-fluid">
     <div class="row">
-        <div class="list-header">
-            <h1>Todo List</h1>
+        <div id="listHeader" class="list-header">
+            <h1></h1>
+            <input type="text" class="header-edit list-header hidden">
             <button class="btn transparent glyphicon glyphicon-plus add-item"></button>
         </div>
         <div class="account-control">
@@ -61,8 +62,9 @@
 
 <!-- New list template -->
 <li id="list_template" class="hidden row form-inline padded">
-    <a href="#" class="col-xs-10"><span class="item-text"></span></a>
-    <input type="text" class="item-edit col-xs-10 hidden">
+    <a href="#" class="col-xs-7"><span class="item-text"></span></a>
+    <input type="text" class="item-edit col-xs-7 hidden">
+    <button class="header-edit col-xs-1 btn transparent glyphicon glyphicon-edit"></button>
     <button class="item-delete col-xs-1 btn transparent glyphicon glyphicon-remove"></button>
 </li>
 

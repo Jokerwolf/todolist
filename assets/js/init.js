@@ -22,6 +22,11 @@ collapseButton.addEventListener('click', collapsePanel);
 var addNewListButton = document.getElementById('addList');
 addNewListButton.addEventListener('click', addNewList);
 
+var editListButtons = document.getElementsByClassName('edit-item');
+for(var i = 0; i < editListButtons.length; i++){
+    editListButtons[i].addEventListener('click', editList());
+}
+
 //Show active todolist
 var activeTodoList = sidePanelViewModel.getActiveTodoList();
 var viewModel = new TodoListViewModel(activeTodoList.getModel());
@@ -31,6 +36,10 @@ viewModel.render();
 var addButtons = document.getElementsByClassName('add-item');
 for (var i = 0; i < addButtons.length; i++) {
     addButtons[i].addEventListener('click', addNewItem);
+}
+
+function editList(){
+    sidePanelViewModel.todoListsViewModel.editItem();
 }
 
 function addNewItem(){

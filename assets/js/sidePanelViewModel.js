@@ -195,7 +195,7 @@ function SidePanelViewModel(model, state){
         if (state === 'open'){
             //Collapse
             sidePanel.style.margin = '0 0 0 -14.5%';
-            mainArea.style.width = '97%';
+            mainArea.style.width = '97.5%';
 
             collapseButton.classList.remove('glyphicon-arrow-left');
             collapseButton.classList.add('glyphicon-arrow-right')

@@ -154,7 +154,45 @@ function TodoListViewModel(model){
         item.render();
     };
 
+    this.editTitle = function(mode){
+        var displayControl = document.getElementById('listHeader').querySelector('h1');
+        var editControl = document.getElementById('listHeader').querySelector('.header-edit');
+
+        switch (mode){
+            case 'edit':
+                displayControl.classList.add('hidden');
+                editControl.value = displayControl.innerHTML;
+                editControl.classList.remove('hidden');
+                editControl.focus();
+                break;
+            case 'display':
+                if (editControl.value !== '' && editControl.value !== null) {
+                    //do not change list header if new value is empty
+                    model.setTitle(editControl.value);
+                    displayControl.innerHTML = editControl.value;
+                }
+
+                editControl.classList.add('hidden');
+                displayControl.classList.remove('hidden');
+
+                break;
+        }
+    }
+
     this.render = function(){
+        //render header
+        var headerDisplayControl = document.getElementById('listHeader').querySelector('h1');
+        var headerEditControl = document.getElementById('listHeader').querySelector('.header-edit');
+        headerDisplayControl.innerHTML = model.getTitle();
+
+        headerDisplayControl.addEventListener('dblclick', function(){
+            self.editTitle('edit');
+        });
+        headerEditControl.addEventListener('blur', function(){
+            self.editTitle('display');
+        });
+
+        //render content
         var ul = document.getElementById('todoList');
         ul.innerHTML = '';
         for (var index in items){
