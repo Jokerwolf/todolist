@@ -17,11 +17,15 @@ function TodoListModel(title, items){
 
     this.getTitle = function(){
         return self.title;
-    }
+    };
+
+	this.setTitle = function(title){
+		self.title = title;
+	};
 
     this.getItems = function(){
         return items;
-    }
+    };
 
 	this.addItem = function(item){
 		items.push(item);

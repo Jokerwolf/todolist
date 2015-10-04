@@ -3,6 +3,14 @@
  */
 
 /*** ViewModel ***/
+/**
+ *
+ * @param item TodoListItemModel
+ * @param mode
+ * @param editAction
+ * @param deleteAction
+ * @constructor
+ */
 function TodoListItemViewModel(item, mode, editAction, deleteAction){
     var self = this;
     this.item = item == null ? new TodoListItemModel('', false) : item;
@@ -107,7 +115,7 @@ function TodoListViewModel(model){
 
         var ul = viewControl.parentNode;
         ul.removeChild(viewControl);
-    }
+    };
 
     this.editItem = function(item, viewControl, mode){
         var displayControl = viewControl.querySelector('.item-text');
@@ -124,16 +132,17 @@ function TodoListViewModel(model){
                 if (editControl.value === '' || editControl.value === null){
                     //remove empty item
                     self.deleteItem(item, editControl.parentNode);
+                } else {
+                    model.editItem(displayControl.innerHTML, editControl.value);
+                    displayControl.innerHTML = editControl.value;
+                    editControl.classList.add('hidden');
+                    displayControl.classList.remove('hidden');
                 }
-                model.editItem(displayControl.innerHTML, editControl.value);
-                displayControl.innerHTML = editControl.value;
-                editControl.classList.add('hidden');
-                displayControl.classList.remove('hidden');
                 break;
             default:
                 break;
         }
-    }
+    };
 
     this.addItem = function(item){
         model.addItem(item.item);

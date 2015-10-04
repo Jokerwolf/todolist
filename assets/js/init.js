@@ -8,9 +8,9 @@
  */
 var sidePanelModel = new SidePanelModel('open',
     [
-        new TodoListModel('To buy', [new TodoListItemModel('Milk'), new TodoListItemModel('Cheese'), new TodoListItemModel('Grapes')]),
+        new TodoListModel('To buy', [new TodoListItemModel('Milk', true)]),
         new TodoListModel('To see', [new TodoListItemModel('Rambo'), new TodoListItemModel('Rocky'), new TodoListItemModel('Monsters Inc.')]),
-        new TodoListModel('To read', [new TodoListItemModel('1984', true), new TodoListItemModel('Animal Farm', true), new TodoListItemModel('Fight Club')])
+        new TodoListModel('To read', [new TodoListItemModel('1984'), new TodoListItemModel('Animal Farm'), new TodoListItemModel('Fight Club')])
     ]
 );
 var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
@@ -23,9 +23,7 @@ var addNewListButton = document.getElementById('addList');
 addNewListButton.addEventListener('click', addNewList);
 
 //Show active todolist
-//SidePanelTodoListViewModel
 var activeTodoList = sidePanelViewModel.getActiveTodoList();
-//TodolistModel
 var viewModel = new TodoListViewModel(activeTodoList.getModel());
 viewModel.render();
 
@@ -44,7 +42,5 @@ function collapsePanel(){
 }
 
 function addNewList(){
-    var newList = new TodoListModel('My new list');
-
-    sidePanelViewModel.todoListsViewModel.addNewList(newList);
+    sidePanelViewModel.todoListsViewModel.addItem(new SidePanelTodoListViewModel(null, 'edit'));
 }
