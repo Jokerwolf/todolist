@@ -93,7 +93,7 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
  */
 function TodoListViewModel(model){
     var self = this;
-    var model = model != null ? model : new TodoListModel();
+    this.model = model != null ? model : new TodoListModel();
     var items = [];
 
     function indexOfItem(value){
@@ -104,8 +104,12 @@ function TodoListViewModel(model){
         }
     }
 
+    this.getModel = function(){
+        return self.model;
+    };
+
     this.deleteItem = function(item, viewControl){
-        model.deleteItem(item.item);
+        self.model.deleteItem(item.item);
 
         var index = indexOfItem(item.text);
 
@@ -133,7 +137,7 @@ function TodoListViewModel(model){
                     //remove empty item
                     self.deleteItem(item, editControl.parentNode);
                 } else {
-                    model.editItem(displayControl.innerHTML, editControl.value);
+                    self.model.editItem(displayControl.innerHTML, editControl.value);
                     displayControl.innerHTML = editControl.value;
                     editControl.classList.add('hidden');
                     displayControl.classList.remove('hidden');
@@ -145,7 +149,7 @@ function TodoListViewModel(model){
     };
 
     this.addItem = function(item){
-        model.addItem(item.item);
+        self.model.addItem(item.item);
         item.editAction = self.editItem.bind(self);
         item.deleteAction = self.deleteItem.bind(self);
 
@@ -168,7 +172,7 @@ function TodoListViewModel(model){
             case 'display':
                 if (editControl.value !== '' && editControl.value !== null) {
                     //do not change list header if new value is empty
-                    model.setTitle(editControl.value);
+                    self.model.setTitle(editControl.value);
                     displayControl.innerHTML = editControl.value;
                 }
 
@@ -177,20 +181,30 @@ function TodoListViewModel(model){
 
                 break;
         }
-    }
+    };
+
+    this.rerenderTitle = function(viewControl, model){
+        var displayControl = viewControl.querySelector('h1');
+        var editControl = viewControl.querySelector('.header-edit');
+
+        displayControl.innerHTML = self.model.getTitle();
+        editControl.value = self.model.getTitle();
+    };
 
     this.render = function(){
         //render header
         var headerDisplayControl = document.getElementById('listHeader').querySelector('h1');
-        var headerEditControl = document.getElementById('listHeader').querySelector('.header-edit');
-        headerDisplayControl.innerHTML = model.getTitle();
+        headerDisplayControl.innerHTML = self.model.getTitle();
 
+        var headerEditControl = document.getElementById('listHeader').querySelector('.header-edit');
         headerDisplayControl.addEventListener('dblclick', function(){
             self.editTitle('edit');
         });
         headerEditControl.addEventListener('blur', function(){
             self.editTitle('display');
         });
+
+        self.model.titleObservable.subscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
 
         //render content
         var ul = document.getElementById('todoList');
@@ -201,8 +215,8 @@ function TodoListViewModel(model){
     }
 
     //fill items from model
-    for(var i = 0; i < model.getItems().length; i++){
-        items.push(new TodoListItemViewModel(model.getItems()[i], null, self.editItem, self.deleteItem));
+    for(var i = 0; i < self.model.getItems().length; i++){
+        items.push(new TodoListItemViewModel(self.model.getItems()[i], null, self.editItem, self.deleteItem));
     }
 };
 /*** ViewModel end ***/

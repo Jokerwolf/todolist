@@ -28,7 +28,7 @@ for(var i = 0; i < editListButtons.length; i++){
 }
 
 //Show active todolist
-var activeTodoList = sidePanelViewModel.getActiveTodoList();
+var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
 var viewModel = new TodoListViewModel(activeTodoList.getModel());
 viewModel.render();
 

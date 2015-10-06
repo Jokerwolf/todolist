@@ -14,6 +14,7 @@ function TodoListModel(title, items){
     var self = this;
 	var items = items != null ? items : [];
     this.title = title;
+	this.titleObservable = new Observable();
 
     this.getTitle = function(){
         return self.title;
@@ -21,6 +22,7 @@ function TodoListModel(title, items){
 
 	this.setTitle = function(title){
 		self.title = title;
+		self.titleObservable.fire(title, self);
 	};
 
     this.getItems = function(){
