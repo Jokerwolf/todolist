@@ -56,7 +56,7 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
 
         list.appendChild(li);
 
-        this.model.titleObservable.subscribe(self.rerenderTitleAction.bind(self, li, self.model ));
+        self.model.titleObservable.subscribe(self.rerenderTitleAction.bind(self, li, self.model));
 
         switch (self.mode) {
             case 'edit':
@@ -97,7 +97,7 @@ function SidePanelTodoListsViewModel(lists){
         //update view model
         newListViewModel.editAction = self.editItem.bind(self);
         newListViewModel.deleteAction = self.deleteItem.bind(self);
-        newListViewModel.rerenderTitleAction = self.rerenderTitle.bind(self);
+        newListViewModel.rerenderTitleAction = self.renderTitle.bind(self);
 
         items.push(newListViewModel);
 
@@ -119,7 +119,7 @@ function SidePanelTodoListsViewModel(lists){
         ul.removeChild(viewControl);
     };
 
-    this.rerenderTitle = function(viewControl, model){
+    this.renderTitle = function(viewControl, model){
         var displayControl = viewControl.querySelector('.item-text');
         var editControl = viewControl.querySelector('.item-edit');
 
@@ -182,7 +182,7 @@ function SidePanelTodoListsViewModel(lists){
 
     //fill items
     for (var i = 0; i < lists.length; i++){
-        items.push(new SidePanelTodoListViewModel(lists[i], null, self.editItem, self.deleteItem));
+        items.push(new SidePanelTodoListViewModel(lists[i], null, self.editItem, self.deleteItem, self.renderTitle));
     }
 
     function indexOfItem(value){
