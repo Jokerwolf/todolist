@@ -203,6 +203,12 @@ function TodoListViewModel(model){
         headerEditControl.addEventListener('blur', function(){
             self.editTitle('display');
         });
+        headerEditControl.addEventListener('keypress', function(e){
+            var key = e.which || e.keyCode;
+            if (key === 13) { // 13 is enter
+                self.editTitle('display');
+            }
+        });
 
         self.model.titleObservable.subscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
 
