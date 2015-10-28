@@ -7,5 +7,6 @@ require_once ('./server/controllers/BaseController.php');
 require_once ('./server/models/BaseModel.php');
 
 $loader = new Loader($_GET);
+$loader -> CreateController();
 
 ?>
