@@ -6,13 +6,15 @@
 /**
  * Side Panel
  */
-var sidePanelModel = new SidePanelModel('open',
-    [
-        new TodoListModel('To buy', [new TodoListItemModel('Milk', true)]),
-        new TodoListModel('To see', [new TodoListItemModel('Rambo'), new TodoListItemModel('Rocky'), new TodoListItemModel('Monsters Inc.')]),
-        new TodoListModel('To read', [new TodoListItemModel('1984'), new TodoListItemModel('Animal Farm'), new TodoListItemModel('Fight Club')])
-    ]
-);
+//var sidePanelModel = new SidePanelModel('open',
+//    [
+//        new TodoListModel('To buy', [new TodoListItemModel('Milk', true)]),
+//        new TodoListModel('To see', [new TodoListItemModel('Rambo'), new TodoListItemModel('Rocky'), new TodoListItemModel('Monsters Inc.')]),
+//        new TodoListModel('To read', [new TodoListItemModel('1984'), new TodoListItemModel('Animal Farm'), new TodoListItemModel('Fight Club')])
+//    ]
+//);
+
+var sidePanelModel = new SidePanelModel('open', null);
 var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
 sidePanelViewModel.render();
 

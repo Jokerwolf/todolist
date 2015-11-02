@@ -51,7 +51,7 @@ function SidePanelModel(state, lists){
 
     this.getItems = function(){
         return todoLists;
-    }
+    };
 
     this.addItem = function(newList){
         todoLists.push(newList);
