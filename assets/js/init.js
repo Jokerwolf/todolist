@@ -14,7 +14,19 @@
 //    ]
 //);
 
-var sidePanelModel = new SidePanelModel('open', null);
+function getTodoLists(){
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log(JSON.parse(xhttp.responseText));
+        }
+    }
+    xhttp.open("GET", "index.php?controller=home&action=getLists", true);
+    xhttp.send();
+}
+
+var sidePanelModel = new SidePanelModel('open', getTodoLists());
 var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
 sidePanelViewModel.render();
 

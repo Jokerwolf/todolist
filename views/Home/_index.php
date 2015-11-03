@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+/**
+ * Created by PhpStorm.
+ * User: jokerwolf
+ * Date: 31/10/15
+ * Time: 23:17
+ */
 
-	<title>ToDo</title>
-
-    <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/theme.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/checkbox.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/sidePanel.css">
-</head>
-<body>
-
-<header class="container-fluid">
-    <div class="row">
-        <div id="listHeader" class="list-header">
-            <h1></h1>
-            <input type="text" class="header-edit list-header hidden">
-            <button class="btn transparent glyphicon glyphicon-plus add-item"></button>
-        </div>
-        <div class="account-control">
-            <button class="btn glyphicon glyphicon-user transparent"></button>
-        </div>
-    </div>
-</header>
-
+?>
 <div class="container wrapper">
     <!-- Side panel -->
     <nav id="sidePanel" class="container col-xs-2 side-panel">
 
-            <div class="list col-xs-1">
-                <ul id="lists">
-                </ul>
+        <div class="list col-xs-1">
+            <ul id="lists">
+                <?php require("_sidepanel.php"); ?>
+            </ul>
 
-                <button id="addList" class="btn glyphicon glyphicon-plus col-xs-1"></button>
-            </div>
+            <button id="addList" class="btn glyphicon glyphicon-plus col-xs-1"></button>
+        </div>
 
-            <button id="collapseButton" class="collapse-button btn glyphicon glyphicon-arrow-left"></button>
+        <button id="collapseButton" class="collapse-button btn glyphicon glyphicon-arrow-left"></button>
 
     </nav>
 
@@ -79,6 +61,3 @@
 <script src="assets/js/init.js"></script>
 
 <script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
-
-</body>
-</html>
