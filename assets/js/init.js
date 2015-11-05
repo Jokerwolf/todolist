@@ -14,56 +14,66 @@
 //    ]
 //);
 
+getTodoLists();
+
 function getTodoLists(){
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            console.log(JSON.parse(xhttp.responseText));
+            var lists = [];
+            var response = JSON.parse(xhttp.response);
+            for(var i = 0; i < response.length; i++){
+                lists.push(new TodoListModel(response[i].title, null));
+            }
+
+            renderPage(lists);
         }
     }
     xhttp.open("GET", "index.php?controller=home&action=getLists", true);
     xhttp.send();
 }
 
-var sidePanelModel = new SidePanelModel('open', getTodoLists());
-var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
-sidePanelViewModel.render();
+function renderPage(lists){
+    var sidePanelModel = new SidePanelModel('open', lists);
+    var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
+    sidePanelViewModel.render();
 
-var collapseButton = document.getElementById('collapseButton');
-collapseButton.addEventListener('click', collapsePanel);
+    var collapseButton = document.getElementById('collapseButton');
+    collapseButton.addEventListener('click', collapsePanel);
 
-var addNewListButton = document.getElementById('addList');
-addNewListButton.addEventListener('click', addNewList);
+    var addNewListButton = document.getElementById('addList');
+    addNewListButton.addEventListener('click', addNewList);
 
-var editListButtons = document.getElementsByClassName('edit-item');
-for(var i = 0; i < editListButtons.length; i++){
-    editListButtons[i].addEventListener('click', editList());
-}
+    var editListButtons = document.getElementsByClassName('edit-item');
+    for(var i = 0; i < editListButtons.length; i++){
+        editListButtons[i].addEventListener('click', editList());
+    }
 
-//Show active todolist
-var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
-var viewModel = new TodoListViewModel(activeTodoList.getModel());
-viewModel.render();
+    //Show active todolist
+    var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
+    var viewModel = new TodoListViewModel(activeTodoList.getModel());
+    viewModel.render();
 
-//Attach event listeners
-var addButtons = document.getElementsByClassName('add-item');
-for (var i = 0; i < addButtons.length; i++) {
-    addButtons[i].addEventListener('click', addNewItem);
-}
+    //Attach event listeners
+    var addButtons = document.getElementsByClassName('add-item');
+    for (var i = 0; i < addButtons.length; i++) {
+        addButtons[i].addEventListener('click', addNewItem);
+    }
 
-function editList(){
-    sidePanelViewModel.todoListsViewModel.editItem();
-}
+    function editList(){
+        sidePanelViewModel.todoListsViewModel.editItem();
+    }
 
-function addNewItem(){
-    viewModel.addItem(new TodoListItemViewModel(null, 'edit'));
-}
+    function addNewItem(){
+        viewModel.addItem(new TodoListItemViewModel(null, 'edit'));
+    }
 
-function collapsePanel(){
-    sidePanelViewModel.changeCollapsedState();
-}
+    function collapsePanel(){
+        sidePanelViewModel.changeCollapsedState();
+    }
 
-function addNewList(){
-    sidePanelViewModel.todoListsViewModel.addItem(new SidePanelTodoListViewModel(null, 'edit'));
+    function addNewList(){
+        sidePanelViewModel.todoListsViewModel.addItem(new SidePanelTodoListViewModel(null, 'edit'));
+    }
 }
