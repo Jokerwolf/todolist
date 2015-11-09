@@ -22,10 +22,14 @@ function getTodoLists(){
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var lists = [];
+            console.log(xhttp.response);
             var response = JSON.parse(xhttp.response);
-            for(var i = 0; i < response.length; i++){
-                lists.push(new TodoListModel(response[i].title, null));
+            for (var list in response){
+                lists.push(new TodoListModel(response[list].title, response[list].items));
             }
+            //for(var i = 0; i < response.length; i++){
+            //    lists.push(new TodoListModel(response[i].title, null));
+            //}
 
             renderPage(lists);
         }
