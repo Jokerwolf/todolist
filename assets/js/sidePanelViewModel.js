@@ -7,7 +7,7 @@
  * @param item TodoListModel
  * @constructor
  */
-function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerenderTitleAction){
+function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerenderTitleAction, setActiveAction){
     var self = this;
     this.model = item == null ? new TodoListModel('') : item;
 
@@ -16,6 +16,7 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
     this.editAction = editAction == null ? function(){} : editAction;
     this.deleteAction = deleteAction == null ? function(){} : deleteAction;
     this.rerenderTitleAction = rerenderTitleAction == null ? function(){} : rerenderTitleAction;
+    this.setActiveAction = setActiveAction == null ? function(){} : setActiveAction;
 
     this.getModel = function(){
         return self.model;
@@ -30,13 +31,18 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
         li.removeAttribute('id');
         li.classList.remove('hidden');
 
+        var hiddenId = li.querySelector('.list-id');
         var displayControl = li.querySelector('.item-text');
         var editControl = li.querySelector('.item-edit');
 
+        hiddenId.value = self.model.getId();
         displayControl.innerHTML = self.model.getTitle();
         editControl.value = self.model.getTitle();
 
         //Add event listeners
+        li.querySelector('.item-text').addEventListener('click', function(){
+            self.setActiveAction(self);
+        });
         li.querySelector('.header-edit').addEventListener('click', function(){
             self.editAction(self, li, 'edit');
         });
@@ -52,7 +58,6 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
         li.querySelector('.item-delete').addEventListener('click', function(){
             self.deleteAction(self, li)
         });
-
 
         list.appendChild(li);
 
@@ -98,6 +103,7 @@ function SidePanelTodoListsViewModel(lists){
         newListViewModel.editAction = self.editItem.bind(self);
         newListViewModel.deleteAction = self.deleteItem.bind(self);
         newListViewModel.rerenderTitleAction = self.renderTitle.bind(self);
+        newListViewModel.setActiveAction = self.setActiveTodoList.bind(self);
 
         items.push(newListViewModel);
 
@@ -170,8 +176,8 @@ function SidePanelTodoListsViewModel(lists){
         return self.getElementAt(self.currentTodoListIndex);
     };
 
-    this.setActiveTodoList = function(index){
-        self.currentTodoListIndex = index;
+    this.setActiveTodoList = function(item){
+        self.currentTodoListIndex = indexOfItem(item.getModel().title);
     };
 
     this.render = function() {
@@ -182,12 +188,12 @@ function SidePanelTodoListsViewModel(lists){
 
     //fill items
     for (var i = 0; i < lists.length; i++){
-        items.push(new SidePanelTodoListViewModel(lists[i], null, self.editItem, self.deleteItem, self.renderTitle));
+        items.push(new SidePanelTodoListViewModel(lists[i], null, self.editItem, self.deleteItem, self.renderTitle, self.setActiveTodoList));
     }
 
     function indexOfItem(value){
         for (var i = 0; i < items.length; i++){
-            if (items[i].text == value){
+            if (items[i].getModel().title == value){
                 return i;
             }
         }

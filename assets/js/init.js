@@ -2,17 +2,9 @@
  * Created by jokerwolf on 18/07/15.
  */
 
-
 /**
  * Side Panel
  */
-//var sidePanelModel = new SidePanelModel('open',
-//    [
-//        new TodoListModel('To buy', [new TodoListItemModel('Milk', true)]),
-//        new TodoListModel('To see', [new TodoListItemModel('Rambo'), new TodoListItemModel('Rocky'), new TodoListItemModel('Monsters Inc.')]),
-//        new TodoListModel('To read', [new TodoListItemModel('1984'), new TodoListItemModel('Animal Farm'), new TodoListItemModel('Fight Club')])
-//    ]
-//);
 
 getTodoLists();
 
@@ -22,14 +14,14 @@ function getTodoLists(){
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var lists = [];
-            console.log(xhttp.response);
             var response = JSON.parse(xhttp.response);
             for (var list in response){
-                lists.push(new TodoListModel(response[list].title, response[list].items));
+                var items = [];
+                for (var item in response[list].items){
+                    items.push(new TodoListItemModel(response[list].items[item].id, response[list].items[item].value, response[list].items[item].is_completed));
+                }
+                lists.push(new TodoListModel(response[list].title, items, response[list].id));
             }
-            //for(var i = 0; i < response.length; i++){
-            //    lists.push(new TodoListModel(response[i].title, null));
-            //}
 
             renderPage(lists);
         }

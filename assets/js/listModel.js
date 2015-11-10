@@ -1,5 +1,6 @@
 /*** Model ***/
-function TodoListItemModel(text, isDone) {
+function TodoListItemModel(id, text, isDone) {
+	this.id = id;
 	this.text = text;
 	this.isDone = isDone;
 };
@@ -10,11 +11,17 @@ function TodoListItemModel(text, isDone) {
  * @param items [TodoListItemModel,...]
  * @constructor
  */
-function TodoListModel(title, items){
+function TodoListModel(title, items, id){
     var self = this;
 	var items = items != null ? items : [];
+
+	this.id = id;
     this.title = title;
 	this.titleObservable = new Observable();
+
+	this.getId = function(){
+		return self.id;
+	}
 
     this.getTitle = function(){
         return self.title;

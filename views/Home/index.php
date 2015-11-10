@@ -62,7 +62,7 @@
 
 <!-- New list template -->
 <li id="list_template" class="hidden row form-inline padded">
-    <a href="#" class="col-xs-7"><span class="item-text"></span></a>
+    <a href="#" class="col-xs-7"><input class="list-id" type="hidden"><span class="item-text"></span></a>
     <input type="text" class="item-edit col-xs-7 hidden">
     <button class="header-edit col-xs-1 btn transparent glyphicon glyphicon-edit"></button>
     <button class="item-delete col-xs-1 btn transparent glyphicon glyphicon-remove"></button>
