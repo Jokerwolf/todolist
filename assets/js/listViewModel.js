@@ -13,7 +13,7 @@
  */
 function TodoListItemViewModel(item, mode, editAction, deleteAction){
     var self = this;
-    this.item = item == null ? new TodoListItemModel('', false) : item;
+    this.item = item == null ? new TodoListItemModel(-1, '', false) : item;
 
     this.editAction = editAction == null ? function(){} : editAction;
     this.deleteAction = deleteAction == null ? function(){} : deleteAction;
@@ -184,6 +184,7 @@ function TodoListViewModel(model){
     };
 
     this.rerenderTitle = function(viewControl, model){
+        console.log('I\'m TodoListViewModel: ' + self.model.getTitle() + ' and I\'m rerenderTitle: ' + viewControl + ' ' + model.getTitle());
         var displayControl = viewControl.querySelector('h1');
         var editControl = viewControl.querySelector('.header-edit');
 
@@ -205,11 +206,13 @@ function TodoListViewModel(model){
         });
         headerEditControl.addEventListener('keypress', function(e){
             var key = e.which || e.keyCode;
-            if (key === 13) { // 13 is enter
+            if (key === 13) {
+                // 13 is enter
                 self.editTitle('display');
             }
         });
 
+        self.model.titleObservable.unsubscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
         self.model.titleObservable.subscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
 
         //render content

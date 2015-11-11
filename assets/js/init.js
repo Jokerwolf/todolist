@@ -31,6 +31,7 @@ function getTodoLists(){
 }
 
 function renderPage(lists){
+    //render SidePanel
     var sidePanelModel = new SidePanelModel('open', lists);
     var sidePanelViewModel = new SidePanelViewModel(sidePanelModel);
     sidePanelViewModel.render();
@@ -38,31 +39,37 @@ function renderPage(lists){
     var collapseButton = document.getElementById('collapseButton');
     collapseButton.addEventListener('click', collapsePanel);
 
-    var addNewListButton = document.getElementById('addList');
-    addNewListButton.addEventListener('click', addNewList);
-
     var editListButtons = document.getElementsByClassName('edit-item');
     for(var i = 0; i < editListButtons.length; i++){
         editListButtons[i].addEventListener('click', editList());
     }
 
-    //Show active todolist
-    var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
-    var viewModel = new TodoListViewModel(activeTodoList.getModel());
-    viewModel.render();
+    var addNewListButton = document.getElementById('addList');
+    addNewListButton.addEventListener('click', addNewList);
 
-    //Attach event listeners
-    var addButtons = document.getElementsByClassName('add-item');
-    for (var i = 0; i < addButtons.length; i++) {
-        addButtons[i].addEventListener('click', addNewItem);
+    //Show active todolist
+    sidePanelViewModel.todoListsViewModel.currentTodoListIndexObservable.subscribe(renderCurrentTodoList);
+    renderCurrentTodoList();
+
+    function renderCurrentTodoList(){
+        var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
+        var todoListViewModel = new TodoListViewModel(activeTodoList.getModel());
+        todoListViewModel.render();
+
+        //Attach event listeners
+        var addButtons = document.getElementsByClassName('add-item');
+        for (var i = 0; i < addButtons.length; i++) {
+            addButtons[i].removeEventListener('click', addNewItem);
+            addButtons[i].addEventListener('click', addNewItem);
+        }
+
+        function addNewItem(){
+            todoListViewModel.addItem(new TodoListItemViewModel(null, 'edit'));
+        }
     }
 
     function editList(){
         sidePanelViewModel.todoListsViewModel.editItem();
-    }
-
-    function addNewItem(){
-        viewModel.addItem(new TodoListItemViewModel(null, 'edit'));
     }
 
     function collapsePanel(){

@@ -61,6 +61,7 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
 
         list.appendChild(li);
 
+        self.model.titleObservable.unsubscribe(self.rerenderTitleAction.bind(self, li, self.model));
         self.model.titleObservable.subscribe(self.rerenderTitleAction.bind(self, li, self.model));
 
         switch (self.mode) {
@@ -86,6 +87,7 @@ function SidePanelTodoListsViewModel(lists){
     var items = [];
 
     this.currentTodoListIndex = 0;
+    this.currentTodoListIndexObservable = new Observable();
 
     this.getLength = function() {
         return items.length;
@@ -126,6 +128,7 @@ function SidePanelTodoListsViewModel(lists){
     };
 
     this.renderTitle = function(viewControl, model){
+        console.log('I\'m SidePanelTodoListsViewModel and I\'m renderTitle: ' + viewControl.toString() + ' ' + model.getTitle());
         var displayControl = viewControl.querySelector('.item-text');
         var editControl = viewControl.querySelector('.item-edit');
 
@@ -151,12 +154,10 @@ function SidePanelTodoListsViewModel(lists){
                         self.deleteItem(item, editControl.parentNode);
                     }
                 } else {
-
                     var index = indexOfItem(displayControl.innerHTML);
 
                     if (index >= 0) {
-                        items[index].setTitle(editControl.value);
-                        items[index].render();
+                        items[index].getModel().setTitle(editControl.value);
                     }
 
                     //update model
@@ -178,6 +179,7 @@ function SidePanelTodoListsViewModel(lists){
 
     this.setActiveTodoList = function(item){
         self.currentTodoListIndex = indexOfItem(item.getModel().title);
+        self.currentTodoListIndexObservable.fire(self.currentTodoListIndex, self);
     };
 
     this.render = function() {
@@ -198,7 +200,6 @@ function SidePanelTodoListsViewModel(lists){
             }
         }
     }
-
 }
 
 /**
