@@ -29,16 +29,15 @@
 <div class="container wrapper">
     <!-- Side panel -->
     <nav id="sidePanel" class="container col-xs-2 side-panel">
+        <div class="list col-xs-1">
+            <ul id="lists">
+            </ul>
 
-            <div class="list col-xs-1">
-                <ul id="lists">
-                </ul>
+            <button id="addList" class="btn glyphicon glyphicon-plus col-xs-1"></button>
+            <button id="saveAll" class="btn glyphicon glyphicon-save col-xs-1"></button>
+        </div>
 
-                <button id="addList" class="btn glyphicon glyphicon-plus col-xs-1"></button>
-            </div>
-
-            <button id="collapseButton" class="collapse-button btn glyphicon glyphicon-arrow-left"></button>
-
+        <button id="collapseButton" class="collapse-button btn glyphicon glyphicon-arrow-left"></button>
     </nav>
 
     <!-- Main area -->

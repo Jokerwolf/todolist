@@ -10,6 +10,9 @@
 function SidePanelTodoListsModel(lists){
     var items = lists;
 
+    this.getItems = function(){
+        return items;
+    };
     this.addItem = function(item){
         items.push(item);
     };

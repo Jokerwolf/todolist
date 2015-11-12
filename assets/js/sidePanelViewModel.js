@@ -89,6 +89,10 @@ function SidePanelTodoListsViewModel(lists){
     this.currentTodoListIndex = 0;
     this.currentTodoListIndexObservable = new Observable();
 
+    this.getModel = function(){
+        return model.getItems();
+    };
+
     this.getLength = function() {
         return items.length;
     };
@@ -213,6 +217,10 @@ function SidePanelViewModel(model, state){
     this.todoListsViewModel = new SidePanelTodoListsViewModel(model.getItems());
 
     var initState = saveInitState();
+
+    this.getModel = function(){
+        return this.todoListsViewModel.getModel();
+    }
 
     this.getPanelState = function(){
         return this.state;

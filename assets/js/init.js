@@ -30,6 +30,19 @@ function getTodoLists(){
     xhttp.send();
 }
 
+function saveTodoLists(model){
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+        }
+    }
+    xhttp.open("POST", "index.php?controller=home&action=saveLists", true);
+    xhttp.send();
+}
+
+
 function renderPage(lists){
     //render SidePanel
     var sidePanelModel = new SidePanelModel('open', lists);
@@ -46,6 +59,9 @@ function renderPage(lists){
 
     var addNewListButton = document.getElementById('addList');
     addNewListButton.addEventListener('click', addNewList);
+
+    var saveAllButton = document.getElementById('saveAll');
+    saveAllButton.addEventListener('click', saveAll);
 
     //Show active todolist
     sidePanelViewModel.todoListsViewModel.currentTodoListIndexObservable.subscribe(renderCurrentTodoList);
@@ -79,5 +95,9 @@ function renderPage(lists){
 
     function addNewList(){
         sidePanelViewModel.todoListsViewModel.addItem(new SidePanelTodoListViewModel(null, 'edit'));
+    }
+
+    function saveAll(){
+        saveTodoLists(sidePanelViewModel.getModel());
     }
 }
