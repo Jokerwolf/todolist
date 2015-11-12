@@ -108,6 +108,11 @@ function TodoListViewModel(model){
         return self.model;
     };
 
+    this.setModel = function(model){
+        self.model = model;
+        fillItems();
+    };
+
     this.deleteItem = function(item, viewControl){
         self.model.deleteItem(item.item);
 
@@ -223,9 +228,14 @@ function TodoListViewModel(model){
         }
     }
 
-    //fill items from model
-    for(var i = 0; i < self.model.getItems().length; i++){
-        items.push(new TodoListItemViewModel(self.model.getItems()[i], null, self.editItem, self.deleteItem));
+    function fillItems(){
+        //fill items from model
+        items = [];
+        for(var i = 0; i < self.model.getItems().length; i++){
+            items.push(new TodoListItemViewModel(self.model.getItems()[i], null, self.editItem, self.deleteItem));
+        }
     }
+
+    fillItems();
 };
 /*** ViewModel end ***/

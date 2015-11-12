@@ -49,11 +49,12 @@ function renderPage(lists){
 
     //Show active todolist
     sidePanelViewModel.todoListsViewModel.currentTodoListIndexObservable.subscribe(renderCurrentTodoList);
+    var todoListViewModel = new TodoListViewModel(null);
     renderCurrentTodoList();
 
     function renderCurrentTodoList(){
         var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
-        var todoListViewModel = new TodoListViewModel(activeTodoList.getModel());
+        todoListViewModel.setModel(activeTodoList.getModel());
         todoListViewModel.render();
 
         //Attach event listeners
