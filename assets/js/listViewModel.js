@@ -50,6 +50,7 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
             } else {
                 li.classList.remove('done');
             }
+            item.isDone = e.srcElement.checked
         });
 
         //Add event listeners
