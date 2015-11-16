@@ -1,9 +1,19 @@
 /*** Model ***/
 function TodoListItemModel(id, text, isDone) {
+	var self = this;
+
 	this.id = id;
 	this.text = text;
 	this.isDone = isDone;
-};
+
+	this.constructDTO = function(){
+		return {
+			id: self.id,
+			text: self.text,
+			isDone: self.isDone
+		};
+	};
+}
 
 /**
  *
@@ -21,7 +31,7 @@ function TodoListModel(title, items, id){
 
 	this.getId = function(){
 		return self.id;
-	}
+	};
 
     this.getTitle = function(){
         return self.title;
@@ -54,7 +64,17 @@ function TodoListModel(title, items, id){
 		if (index >= 0){
 			items[index].text = newValue;
 		}
-	}
+	};
+
+	this.constructDTO = function(){
+		return {
+			id: self.id,
+			title: self.title,
+			items: items.map(function(todoListItem){
+				return todoListItem.constructDTO();
+			})
+		}
+	};
 
 	function indexOfItem(value){
 		for (var i = 0; i < items.length; i++){

@@ -30,6 +30,10 @@ function getTodoLists(){
     xhttp.send();
 }
 
+/**
+ *
+ * @param model [TodoListModel, ... ]
+ */
 function saveTodoLists(model){
     var xhttp = new XMLHttpRequest();
 
@@ -37,9 +41,12 @@ function saveTodoLists(model){
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
         }
-    }
-    xhttp.open("POST", "/home/saveLists/", true);
-    xhttp.send();
+    };
+    xhttp.open("POST", "/home/saveLists", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send( JSON.stringify(model.map(function(todolist){
+        return todolist.constructDTO();
+    })));
 }
 
 
@@ -70,8 +77,10 @@ function renderPage(lists){
 
     function renderCurrentTodoList(){
         var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
-        todoListViewModel.setModel(activeTodoList.getModel());
-        todoListViewModel.render();
+        if (activeTodoList != null) {
+            todoListViewModel.setModel(activeTodoList.getModel());
+            todoListViewModel.render();
+        }
 
         //Attach event listeners
         var addButtons = document.getElementsByClassName('add-item');
