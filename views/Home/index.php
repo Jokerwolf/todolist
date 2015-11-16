@@ -6,10 +6,10 @@
 
 	<title>ToDo</title>
 
-    <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/theme.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/checkbox.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/sidePanel.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/theme.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/checkbox.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/sidePanel.css">
 </head>
 <body>
 
@@ -67,17 +67,17 @@
     <button class="item-delete col-xs-1 btn transparent glyphicon glyphicon-remove"></button>
 </li>
 
-<script src="assets/js/listModel.js"></script>
-<script src="assets/js/listViewModel.js"></script>
+<script src="/assets/js/listModel.js"></script>
+<script src="/assets/js/listViewModel.js"></script>
 
-<script src="assets/js/sidePanelModel.js"></script>
-<script src="assets/js/sidePanelViewModel.js"></script>
+<script src="/assets/js/sidePanelModel.js"></script>
+<script src="/assets/js/sidePanelViewModel.js"></script>
 
-<script src="assets/js/observer.js"></script>
+<script src="/assets/js/observer.js"></script>
 
-<script src="assets/js/init.js"></script>
+<script src="/assets/js/init.js"></script>
 
-<script src="assets/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
 
 </body>
 </html>

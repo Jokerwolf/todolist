@@ -26,7 +26,7 @@ function getTodoLists(){
             renderPage(lists);
         }
     }
-    xhttp.open("GET", "index.php?controller=home&action=getLists", true);
+    xhttp.open("GET", "/home/getLists/", true);
     xhttp.send();
 }
 
@@ -38,7 +38,7 @@ function saveTodoLists(model){
 
         }
     }
-    xhttp.open("POST", "index.php?controller=home&action=saveLists", true);
+    xhttp.open("POST", "/home/saveLists/", true);
     xhttp.send();
 }
 
