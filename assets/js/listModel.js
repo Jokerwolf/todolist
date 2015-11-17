@@ -25,7 +25,7 @@ function TodoListModel(title, items, id){
     var self = this;
 	var items = items != null ? items : [];
 
-	this.id = id;
+	this.id = id != null ? id : -1;
     this.title = title;
 	this.titleObservable = new Observable();
 
