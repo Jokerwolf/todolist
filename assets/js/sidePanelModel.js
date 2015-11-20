@@ -21,7 +21,8 @@ function SidePanelTodoListsModel(lists){
         var index = indexOfItem(item.getTitle());
 
         if (index >= 0){
-            items.splice(index, 1);
+            //items.splice(index, 1);
+            items[index].isDeleted = 1;
         }
     };
 
@@ -40,6 +41,10 @@ function SidePanelTodoListsModel(lists){
             }
         }
     }
+
+    function isShow(item){
+        return item.isDeleted == 0;
+    }
 }
 
 /**
@@ -57,6 +62,11 @@ function SidePanelModel(state, lists){
     };
 
     this.addItem = function(newList){
+        todoLists.push(newList);
+        newList.hasChangesObservable.fire();
+    };
+
+    this.deleteItem = function(newList){
         todoLists.push(newList);
     };
 }

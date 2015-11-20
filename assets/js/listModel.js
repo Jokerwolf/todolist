@@ -5,12 +5,32 @@ function TodoListItemModel(id, text, isDone) {
 	this.id = id;
 	this.text = text;
 	this.isDone = isDone;
+    this.isDeleted = 0;
 
-	this.constructDTO = function(){
+    this.hasChangesObservable = new Observable();
+
+    this.hasChangesObservable.subscribe(save);
+
+    var save = function(listId){
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            }
+        };
+        xhttp.open("POST", "/home/saveItem", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(self.constructDTO(listId)));
+    };
+
+	this.constructDTO = function(listId){
 		return {
 			id: self.id,
 			text: self.text,
-			isDone: self.isDone
+			isDone: self.isDone,
+            isDeleted: self.isDeleted,
+            listId: listId
 		};
 	};
 }
@@ -20,6 +40,7 @@ function TodoListItemModel(id, text, isDone) {
  * @param title
  * @param items [TodoListItemModel,...]
  * @constructor
+ * @param id
  */
 function TodoListModel(title, items, id){
     var self = this;
@@ -27,7 +48,10 @@ function TodoListModel(title, items, id){
 
 	this.id = id != null ? id : -1;
     this.title = title;
+    this.isDeleted = 0;
 	this.titleObservable = new Observable();
+    this.hasChangesObservable = new Observable();
+    this.hasChangesObservable.subscribe(save);
 
 	this.getId = function(){
 		return self.id;
@@ -40,21 +64,25 @@ function TodoListModel(title, items, id){
 	this.setTitle = function(title){
 		self.title = title;
 		self.titleObservable.fire(title, self);
+        self.hasChangesObservable.fire(self);
 	};
 
+    //Get only not deleted items
     this.getItems = function(){
-        return items;
+        return items.filter(isShow);
     };
 
 	this.addItem = function(item){
 		items.push(item);
+        item.hasChangesObservable.fire(self.id);
 	};
 
 	this.deleteItem = function(item){
 		var index = indexOfItem(item.text);		
 
 		if (index >= 0){
-			items.splice(index, 1);
+			//items.splice(index, 1);
+            items[index].isDeleted = 1;
 		}
 	};
 
@@ -70,11 +98,25 @@ function TodoListModel(title, items, id){
 		return {
 			id: self.id,
 			title: self.title,
+            isDeleted: self.isDeleted,
 			items: items.map(function(todoListItem){
-				return todoListItem.constructDTO();
+				return todoListItem.constructDTO(self.id);
 			})
 		}
 	};
+
+    function save(){
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            }
+        };
+        xhttp.open("POST", "/home/saveList", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(self.constructDTO()));
+    }
 
 	function indexOfItem(value){
 		for (var i = 0; i < items.length; i++){
@@ -85,6 +127,10 @@ function TodoListModel(title, items, id){
 
         return null;
 	}
+
+    function isShow(item){
+        return item.isDeleted == 0;
+    }
 };
 /*** Model end ***/
 

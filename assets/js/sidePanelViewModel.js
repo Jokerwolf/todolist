@@ -158,12 +158,6 @@ function SidePanelTodoListsViewModel(lists){
                         self.deleteItem(item, editControl.parentNode);
                     }
                 } else {
-                    var index = indexOfItem(displayControl.innerHTML);
-
-                    if (index >= 0) {
-                        items[index].getModel().setTitle(editControl.value);
-                    }
-
                     //update model
                     model.editItem(displayControl.innerHTML, editControl.value);
 

@@ -95,6 +95,7 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
 function TodoListViewModel(model){
     var self = this;
     this.model = model != null ? model : new TodoListModel();
+    //[TodoListItemViewModel]
     var items = [];
 
     function indexOfItem(value){
@@ -116,6 +117,7 @@ function TodoListViewModel(model){
 
     this.deleteItem = function(item, viewControl){
         self.model.deleteItem(item.item);
+
 
         var index = indexOfItem(item.text);
 
@@ -218,7 +220,6 @@ function TodoListViewModel(model){
             }
         });
 
-        self.model.titleObservable.unsubscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
         self.model.titleObservable.subscribe(self.rerenderTitle.bind(self, document.getElementById('listHeader'), self.model));
 
         //render content
