@@ -18,7 +18,9 @@ function getTodoLists(){
             for (var list in response){
                 var items = [];
                 for (var item in response[list].items){
-                    items.push(new TodoListItemModel(response[list].items[item].id, response[list].items[item].value, response[list].items[item].is_completed));
+                    items.push(new TodoListItemModel(response[list].items[item].id,
+                        response[list].items[item].value,
+                        response[list].items[item].is_completed));
                 }
                 lists.push(new TodoListModel(response[list].title, items, response[list].id));
             }

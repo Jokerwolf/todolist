@@ -61,7 +61,6 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
 
         list.appendChild(li);
 
-        self.model.titleObservable.unsubscribe(self.rerenderTitleAction.bind(self, li, self.model));
         self.model.titleObservable.subscribe(self.rerenderTitleAction.bind(self, li, self.model));
 
         switch (self.mode) {
@@ -114,6 +113,10 @@ function SidePanelTodoListsViewModel(lists){
         items.push(newListViewModel);
 
         newListViewModel.render();
+
+        if (items.length == 1){
+            self.setActiveTodoList(newListViewModel);
+        }
     };
 
     this.deleteItem = function(item, viewControl){
