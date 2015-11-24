@@ -58,7 +58,9 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
             self.editAction(self, li, 'edit')
         });
         li.querySelector('.item-edit').addEventListener('blur', function(){
-            self.editAction(self, li, 'display')
+            if (!this.classList.contains('hidden')) {
+                self.editAction(self, li, 'display');
+            }
         });
         li.querySelector('.item-edit').addEventListener('keypress', function(e){
             var key = e.which || e.keyCode;
@@ -149,6 +151,8 @@ function TodoListViewModel(model){
                     displayControl.innerHTML = editControl.value;
                     editControl.classList.add('hidden');
                     displayControl.classList.remove('hidden');
+
+                    item.item.hasChangesObservable.fire(self.model.id);
                 }
                 break;
             default:
@@ -192,7 +196,6 @@ function TodoListViewModel(model){
     };
 
     this.rerenderTitle = function(viewControl, model){
-        console.log('I\'m TodoListViewModel: ' + self.model.getTitle() + ' and I\'m rerenderTitle: ' + viewControl + ' ' + model.getTitle());
         var displayControl = viewControl.querySelector('h1');
         var editControl = viewControl.querySelector('.header-edit');
 
@@ -210,7 +213,9 @@ function TodoListViewModel(model){
             self.editTitle('edit');
         });
         headerEditControl.addEventListener('blur', function(){
-            self.editTitle('display');
+            if (!this.classList.contains('hidden')) {
+                self.editTitle('display');
+            }
         });
         headerEditControl.addEventListener('keypress', function(e){
             var key = e.which || e.keyCode;

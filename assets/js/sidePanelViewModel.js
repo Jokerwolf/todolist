@@ -55,8 +55,6 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
             var key = e.which || e.keyCode;
             if (key == 13) { // 13 is enter
                 self.editAction(self, li, 'display');
-            } else {
-                console.log('false ' + key);
             }
         });
         li.querySelector('.item-delete').addEventListener('click', function(){

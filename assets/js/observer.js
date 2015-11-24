@@ -25,7 +25,7 @@ Observable.prototype = {
     fire: function(o, thisObj) {
         var scope = thisObj || window;
         this.handlers.forEach(function(item) {
-            item.call(scope);
+            item.call(scope, o);
         });
     }
 }

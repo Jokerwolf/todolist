@@ -71,27 +71,27 @@ function renderPage(lists){
     var saveAllButton = document.getElementById('saveAll');
     saveAllButton.addEventListener('click', saveAll);
 
+    //Attach event listeners
+    var addButtons = document.getElementsByClassName('add-item');
+    for (var i = 0; i < addButtons.length; i++) {
+        addButtons[i].removeEventListener('click', addNewItem);
+        addButtons[i].addEventListener('click', addNewItem);
+    }
+
     //Show active todolist
     sidePanelViewModel.todoListsViewModel.currentTodoListIndexObservable.subscribe(renderCurrentTodoList);
     var todoListViewModel = new TodoListViewModel(null);
     renderCurrentTodoList();
+
+    function addNewItem(){
+        todoListViewModel.addItem(new TodoListItemViewModel(null, 'edit'));
+    }
 
     function renderCurrentTodoList(){
         var activeTodoList = sidePanelViewModel.todoListsViewModel.getActiveTodoList();
         if (activeTodoList != null) {
             todoListViewModel.setModel(activeTodoList.getModel());
             todoListViewModel.render();
-        }
-
-        //Attach event listeners
-        var addButtons = document.getElementsByClassName('add-item');
-        for (var i = 0; i < addButtons.length; i++) {
-            addButtons[i].removeEventListener('click', addNewItem);
-            addButtons[i].addEventListener('click', addNewItem);
-        }
-
-        function addNewItem(){
-            todoListViewModel.addItem(new TodoListItemViewModel(null, 'edit'));
         }
     }
 

@@ -11,7 +11,7 @@ function TodoListItemModel(id, text, isDone) {
 
     this.hasChangesObservable.subscribe(save);
 
-    var save = function(listId){
+    function save(listId){
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function() {
@@ -74,7 +74,6 @@ function TodoListModel(title, items, id){
 
 	this.addItem = function(item){
 		items.push(item);
-        item.hasChangesObservable.fire(self.id);
 	};
 
 	this.deleteItem = function(item){
