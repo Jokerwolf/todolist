@@ -31,7 +31,6 @@ function getTodoLists(){
     xhttp.open("GET", "/home/getLists/", true);
     xhttp.send();
 }
-
 /**
  *
  * @param model [TodoListModel, ... ]

@@ -46,13 +46,17 @@ function SidePanelTodoListViewModel(item, mode, editAction, deleteAction, rerend
         li.querySelector('.header-edit').addEventListener('click', function(){
             self.editAction(self, li, 'edit');
         });
-        li.querySelector('.item-edit').addEventListener('blur', function(){
-            self.editAction(self, li, 'display')
+        li.querySelector('.item-edit').addEventListener('blur', function(e){
+            if (!this.classList.contains('hidden')){
+                self.editAction(self, li, 'display');
+            }
         });
         li.querySelector('.item-edit').addEventListener('keypress', function(e){
             var key = e.which || e.keyCode;
-            if (key === 13) { // 13 is enter
-                self.editAction(self, li, 'display')
+            if (key == 13) { // 13 is enter
+                self.editAction(self, li, 'display');
+            } else {
+                console.log('false ' + key);
             }
         });
         li.querySelector('.item-delete').addEventListener('click', function(){
@@ -100,7 +104,11 @@ function SidePanelTodoListsViewModel(lists){
         return items[index];
     };
 
-    this.addItem = function (newListViewModel){
+    /**
+     *
+     * @param newListViewModel SidePanelTodoListViewModel
+     */
+    this.addItem = function(newListViewModel){
         //update model
         model.addItem(newListViewModel.getModel());
 

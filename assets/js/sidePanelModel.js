@@ -63,7 +63,6 @@ function SidePanelModel(state, lists){
 
     this.addItem = function(newList){
         todoLists.push(newList);
-        newList.hasChangesObservable.fire();
     };
 
     this.deleteItem = function(newList){
