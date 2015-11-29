@@ -16,7 +16,12 @@ function TodoListItemModel(id, text, isDone) {
 
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-
+				var item = JSON.parse(xhttp.responseText);
+				if (item == null){
+					self = null;
+				} else {
+					self.id = item.id;
+				}
             }
         };
         xhttp.open("POST", "/home/saveItem", true);
@@ -109,7 +114,12 @@ function TodoListModel(title, items, id){
 
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-
+				var list = JSON.parse(xhttp.responseText);
+				if (list == null){
+					self = null;
+				} else {
+					self.id = list.id;
+				}
             }
         };
         xhttp.open("POST", "/home/saveList", true);

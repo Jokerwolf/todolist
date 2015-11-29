@@ -50,7 +50,8 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
             } else {
                 li.classList.remove('done');
             }
-            item.isDone = e.srcElement.checked
+            self.item.isDone = e.srcElement.checked
+            self.item.hasChangesObservable.fire();
         });
 
         //Add event listeners
@@ -84,8 +85,10 @@ function TodoListItemViewModel(item, mode, editAction, deleteAction){
                 break;
         }
 
-        li.querySelector('.is-Done').checked = self.isDone();
-        li.querySelector('.is-Done').dispatchEvent(new Event('change'));
+        if (li.querySelector('.is-Done').checked != self.isDone()) {
+            li.querySelector('.is-Done').checked = self.isDone();
+            li.querySelector('.is-Done').dispatchEvent(new Event('change'));
+        }
     };
 };
 
@@ -119,7 +122,7 @@ function TodoListViewModel(model){
 
     this.deleteItem = function(item, viewControl){
         self.model.deleteItem(item.item);
-
+        item.item.hasChangesObservable.fire(self.model.id);
 
         var index = indexOfItem(item.text);
 

@@ -128,6 +128,7 @@ function SidePanelTodoListsViewModel(lists){
     this.deleteItem = function(item, viewControl){
         //update model
         model.deleteItem(item.getModel());
+        item.getModel().hasChangesObservable.fire();
 
         //update view model
         var index = indexOfItem(item.getModel().getTitle());
@@ -223,7 +224,7 @@ function SidePanelViewModel(model, state){
 
     this.getModel = function(){
         return this.todoListsViewModel.getModel();
-    }
+    };
 
     this.getPanelState = function(){
         return this.state;
