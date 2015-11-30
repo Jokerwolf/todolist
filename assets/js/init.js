@@ -78,10 +78,35 @@ function renderPage(lists){
         addButtons[i].addEventListener('click', addNewItem);
     }
 
+    var accountButton = document.getElementById('account');
+    accountButton.addEventListener('click', openAccountPopup);
+    document.addEventListener('click', closeAccountPopup);
+//    var popupAnchors = document.getElementsByClassName('popup-anchor');
+//    for (var i = 0; i < popupAnchors.length; i++){
+//        var popups = popupAnchors[i].getElementsByClassName('popup');
+//        for (var j = 0; j < popups.length; j++){
+//            popups[j].addEventListener('blur', closeAccountPopup);
+//        }
+//    }
+
     //Show active todolist
     sidePanelViewModel.todoListsViewModel.currentTodoListIndexObservable.subscribe(renderCurrentTodoList);
     var todoListViewModel = new TodoListViewModel(null);
     renderCurrentTodoList();
+
+
+    function openAccountPopup(){
+        var popup = this.parentElement.getElementsByClassName('popup')[0];
+        popup.classList.remove('hidden');
+        popup.focus();
+    }
+
+    function closeAccountPopup(event){
+//        if (!$(event.target).closest('#accountPopup').length) {
+//            // Hide the menus.
+//        }
+        this.classList.add('hidden');
+    }
 
     function addNewItem(){
         todoListViewModel.addItem(new TodoListItemViewModel(null, 'edit'));

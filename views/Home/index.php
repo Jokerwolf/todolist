@@ -20,8 +20,19 @@
             <input type="text" class="header-edit list-header hidden">
             <button class="btn transparent glyphicon glyphicon-plus add-item"></button>
         </div>
-        <div class="account-control">
-            <button class="btn glyphicon glyphicon-user transparent"></button>
+        <div id="accountControl" class="account-control popup-anchor">
+            <button id="account" class="btn glyphicon glyphicon-user transparent"></button>
+            <ul id="accountPopup" class="popup hidden">
+                <li class="transparent">
+                    <a href="/account/logout">Account</a>
+                </li>
+                <li class="transparent">
+                    <a href="/account/logout">Something</a>
+                </li>
+                <li class="transparent">
+                    <a href="/account/logout">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </header>

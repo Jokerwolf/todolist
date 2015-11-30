@@ -33,8 +33,8 @@
         <input type="submit" value="Login" class="btn btn-default form-control">
 
         <div class="form-group">
-            <a href="/server/account/register">Register</a>
-            <a href="/restore.php">Forgot your password?</a>
+            <a href="/account/register">Register</a>
+            <a href="/account/restore">Forgot your password?</a>
         </div>
     </form>
 </div>

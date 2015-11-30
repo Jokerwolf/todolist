@@ -24,6 +24,24 @@ header {
     width: 100%;
 }
 
+.popup-anchor{
+    position: relative;
+}
+
+.popup {
+    background: #7575B6;
+    text-align: left;
+    padding: 5px;
+
+    z-index: 9999;
+    position: absolute;
+    top: 40px;
+    right: 0px;
+
+    border: #ffffff solid;
+    border-radius: 4px;
+}
+
 header * {
     display: inline;
     vertical-align: middle;
@@ -79,8 +97,11 @@ li * {
     vertical-align: middle;
 }
 
-.btn.transparent {
+.transparent {
     background: transparent;
+}
+
+.btn {
     border: #ffffff solid;
 }
 
