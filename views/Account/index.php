@@ -12,7 +12,6 @@
 <head>
     <title>Welcome to ToDo</title>
     <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap/css/bootstrap.css">
-    <!--<link rel="stylesheet" type="text/css" href="assets/css/theme.css">-->
 </head>
 <body>
 <header class="jumbotron">
